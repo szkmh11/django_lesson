@@ -5,4 +5,5 @@ class Product(models.Model):
      name = models.CharField(max_length=200)
      price = models.PositiveIntegerField()
 
-class dbtablename:
+class Meta:
+     dbtablename:
