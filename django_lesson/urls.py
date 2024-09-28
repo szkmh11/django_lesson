@@ -20,5 +20,6 @@ from lesson_project import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.TopView.as_view(), name="top"),    
+    path('', views.TopView.as_view(), name="top"),
+    path('lesson_project/', views.ProductListView.as_view(), name="list"),
 ]
