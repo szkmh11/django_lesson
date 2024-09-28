@@ -4,6 +4,7 @@ from django.db import models
 class Product(models.Model):
      name = models.CharField(max_length=200)
      price = models.PositiveIntegerField()
+     maker = models.CharField(max_length=100)
 
      class Meta:
           db_table = 'product'
