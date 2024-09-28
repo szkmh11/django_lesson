@@ -8,4 +8,4 @@ class TopView(TemplateView):
 
 class ProductListView(ListView):
      model = Product
-     template_name = list.html
+     template_name = "product_list.html"
