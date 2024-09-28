@@ -6,4 +6,4 @@ class Product(models.Model):
      price = models.PositiveIntegerField()
 
      class Meta:
-          db_table = 'book'
+          db_table = 'product'
