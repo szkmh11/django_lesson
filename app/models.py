@@ -8,4 +8,6 @@ class Product(models.Model):
           
 # 新規作成・編集完了時のリダイレクト先
 def get_absolute_url(self):
-     return reverse('list')
+     return reverse('product_list')
+
+#新規作成フォームを作ろうの章を関数で
