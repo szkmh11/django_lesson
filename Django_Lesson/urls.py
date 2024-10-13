@@ -26,3 +26,4 @@ urlpatterns = [
     path('app/', views.product_list, name='product_list'),
     path('app/new/', views.ProductCreateView.as_view(), name="new"),
 ]
+
