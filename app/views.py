@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import CreateView
 from .models import Product
 
 class TopView(TemplateView):
@@ -26,5 +27,9 @@ def product_list(request):
     
     return render(request, 'app.html', {'page_obj': page_obj})
 
-def home_view(request):
-    return HttpResponse("<h1>ホームページ</h1><p>ようこそ！</p>")
+class ProductCreateView(CreateView):
+     model = Product
+     fields = '__all__'
+
+#def home_view(request):
+#    return HttpResponse("<h1>ホームページ</h1><p>ようこそ！</p>")

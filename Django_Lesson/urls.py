@@ -19,10 +19,10 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-    path('', views.product_list, name='product_list'),
+#    path('', views.product_list, name='product_list'),
 #homeを表示したい場合は↑をコメントアウトして↓を戻す
-#    path('', views.home_view, name='home'),
+    path('', views.TopView.as_view(), name= "top.html"),
     path('admin/', admin.site.urls),
     path('app/', views.product_list, name='product_list'),
-    
+    path('app/new/', views.ProductCreateView.as_view(), name="new"),
 ]
