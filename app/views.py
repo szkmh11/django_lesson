@@ -7,4 +7,7 @@ class TopView(TemplateView):
 
 class ProductListView(ListView):
     model = Product
+    paginate_by = 2
     template_name = "app.html"
+
+#以下自力で関数設定するのです<urls.pyも忘れずに>
