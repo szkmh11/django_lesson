@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect  # redirectを追加
 from django.http import HttpResponse
 from .models import Product
 from .forms import ProductForm  # ProductFormをインポート
+from django.shortcuts import get_object_or_404
 
 # 商品一覧表示
 def product_list_view(request):
@@ -16,13 +17,26 @@ def product_list_view(request):
 #   return render(request, 'app.html', {'page_obj': page_obj})
 
 # 商品作成ビュー（関数ベース）
-def product_create_view(request):
+def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
-            form.save()  # 商品を保存
-            return redirect('product_list')  # 作成後に商品一覧へリダイレクト
+            form.save()
+            return redirect('product_list')  # 商品一覧ページにリダイレクト
     else:
-        form = ProductForm()  # GETリクエスト時は空のフォームを表示
+        form = ProductForm()
+    return render(request, 'app/product_form.html', {'form': form})
+
+#編集ビュー
+def product_update(request, pk):
+    product = get_object_or_404(Product, pk=pk)  # 主キーに基づいて商品を取得
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()  # フォームの内容で商品を更新
+            return redirect('product_list')  # 商品一覧にリダイレクト
+    else:
+        form = ProductForm(instance=product)  # 商品のデータを使ってフォームを作成
 
     return render(request, 'app/product_form.html', {'form': form})
