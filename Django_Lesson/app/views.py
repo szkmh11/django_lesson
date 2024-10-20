@@ -8,23 +8,24 @@ from .forms import ProductForm  # ProductFormをインポート
 # 商品一覧表示
 def product_list_view(request):
     product_list = Product.objects.all()
-    paginator = Paginator(product_list, 10)  # 1ページあたり10件
+    print(product_list)  # ここでデータを確認
+    paginator = Paginator(product_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    return render(request, 'app/app.html', {'object_list': page_obj})
 
-    return render(request, 'app/app.html', {'page_obj': page_obj})  # page_objをテンプレートに渡す
 
 # 商品作成ビュー（関数ベース）
 def product_create_view(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST)  # 画像ファイルも受け取る場合はrequest.FILESを追加
         if form.is_valid():
             form.save()  # 新しい商品を保存
             return redirect('product_list')  # 商品一覧にリダイレクト
     else:
         form = ProductForm()
     
-    return render(request, 'app/app.html', {'form': form})  # 正しいテンプレートを指定
+    return render(request, 'app/product_form.html', {'form': form})  # ここでのテンプレート名を確認
 
 # 商品更新ビュー（関数ベース）
 def product_update(request, pk):
@@ -37,7 +38,8 @@ def product_update(request, pk):
     else:
         form = ProductForm(instance=product)  # 商品のデータを使ってフォームを作成
 
-    return render(request, 'app/app.html', {'form': form})
+    return render(request, 'app/product_form.html', {'form': form})  # テンプレートを変更
+
 
 # クラスベースのビュー
 class ProductCreateView(CreateView):
