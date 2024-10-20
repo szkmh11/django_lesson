@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}商品作成 / 更新{% endblock %}
+{% block content %}
+<h1>{% if form.instance.pk %}商品更新{% else %}新規作成{% endif %}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- フォームフィールドを表示 -->
+    <button type="submit">保存</button>
+</form>
+
+<a href="{% url 'product_list' %}">戻る</a>
+{% endblock %}
+{% extends "base.html" %}
+<!--
+{% block title %}新規作成{% endblock %}
+{% block content %}
+<h1>新規作成</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <a href="{% url 'product_list' %}">戻る</a>
+    <input type="submit" class="btn btn-primary" value="登録">
+</form>
+{% endblock %}
+-->    
+
