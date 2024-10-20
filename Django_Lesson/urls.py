@@ -20,12 +20,13 @@ from app import views
 from app.views import product_create, product_update
 
 urlpatterns = [
-#    path('', views.product_list, name='product_list'),
+    path('', views.product_list, name='product_list'),
     path('admin/', admin.site.urls),
-#    path('app/', views.product_list, name='product_list'),
+    path('app/', views.product_list, name='product_list'),
     path('app/', views.product_list_view, name='product_list'),  # 修正
-#    path('app/new/', views.ProductCreateView.as_view(), name="new"),
-    path('app/new/', views.product_create_view, name='new'), 
+    path('app/new/', views.ProductCreateView.as_view(), name="new"),
+    path('app/edit/<int:pk>',views.ProductUpdateView.as_view(), name="edit"),
+    path('app/new/', views.product_create, name='new'), 
     path('product/new/', product_create, name='product_create'),
     path('product/<int:pk>/edit/', product_update, name='product_update'),
 ]
