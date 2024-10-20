@@ -19,7 +19,7 @@
             <td>{{ product.name }}</td>
             <td>{{ product.price }} 円</td>
             <td>
-                <button class="btn btn-primary" onclick="location.href='{% url 'edit' pk=product.pk %}'">編集</button>
+                <button class="btn btn-primary" onclick="location.href='{% url 'product_update_form' pk=product.pk %}'">編集</button>
             </td>            
         </tr>
         {% empty %}
