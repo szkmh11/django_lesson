@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Django_Lesson.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # MySQLを使用
-        'NAME': 'lesson',          # データベース名
+        'NAME': 'app_product',          # データベース名
         'USER': 'admin',                        # MySQLユーザー名（デフォルトはroot）
         'PASSWORD': 'szkmh11',           # MySQLパスワード（デフォルトでは空）
         'HOST': '127.0.0.1',                   # MySQLサーバーのホスト名 #127.0.0.1 #localhost

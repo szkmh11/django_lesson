@@ -20,10 +20,10 @@ from app import views
 
 urlpatterns = [
 #    path('', views.product_list, name='product_list'),
-#homeを表示したい場合は↑をコメントアウトして↓を戻す
-    path('', views.TopView.as_view(), name= "top.html"),
     path('admin/', admin.site.urls),
-    path('app/', views.product_list, name='product_list'),
-    path('app/new/', views.ProductCreateView.as_view(), name="new"),
+#    path('app/', views.product_list, name='product_list'),
+    path('app/', views.product_list_view, name='product_list'),  # 修正
+#    path('app/new/', views.ProductCreateView.as_view(), name="new"),
+    path('app/new/', views.product_create_view, name='new'), 
 ]
 

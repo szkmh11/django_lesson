@@ -1,35 +1,28 @@
 import os
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect  # redirectを追加
 from django.http import HttpResponse
-from django.views.generic import TemplateView, ListView
-from django.views.generic.edit import CreateView
 from .models import Product
+from .forms import ProductForm  # ProductFormをインポート
 
-class TopView(TemplateView):
-    template_name = "top.html"
-
-#class ProductListView(ListView):
-#    model = Product
-#    paginate_by = 2
-#    template_name = "app.html"
-
-#以下自力で関数設定するのです<urls.pyも忘れずに>
-
-def product_list(request):
-    products = Product.objects.all()  # 商品を全件取得
-    paginator = Paginator(products, 2)
-    
-    # 現在のページ番号を取得
+# 商品一覧表示
+def product_list_view(request):
+    product_list = Product.objects.all()
+    paginator = Paginator(product_list, 10)  # 1ページあたり10件
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    return render(request, 'app/app.html', {'object_list': page_obj})
 
-    
-    return render(request, 'app.html', {'page_obj': page_obj})
+#   return render(request, 'app.html', {'page_obj': page_obj})
 
-class ProductCreateView(CreateView):
-     model = Product
-     fields = '__all__'
+# 商品作成ビュー（関数ベース）
+def product_create_view(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()  # 商品を保存
+            return redirect('product_list')  # 作成後に商品一覧へリダイレクト
+    else:
+        form = ProductForm()  # GETリクエスト時は空のフォームを表示
 
-#def home_view(request):
-#    return HttpResponse("<h1>ホームページ</h1><p>ようこそ！</p>")
+    return render(request, 'app/product_form.html', {'form': form})
