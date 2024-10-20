@@ -17,13 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
+from app.views import product_create, product_update,product_list_view
 
 urlpatterns = [
-#    path('', views.product_list, name='product_list'),
-#homeを表示したい場合は↑をコメントアウトして↓を戻す
-    path('', views.TopView.as_view(), name= "top.html"),
+    path('', views.product_list_view, name='product_list'),
     path('admin/', admin.site.urls),
-    path('app/', views.product_list, name='product_list'),
+    # path('app/', views.product_list_view, name='product_list'),  # 修正
     path('app/new/', views.ProductCreateView.as_view(), name="new"),
+    path('app/edit/<int:pk>',views.ProductUpdateView.as_view(), name="edit"),
+    path('app/new/', views.product_create, name='new'), 
+#    path('product/new/', product_create, name='product_create'),
+    path('product/edit/<int:pk>/', product_update, name='product_update'),
 ]
 
