@@ -9,6 +9,7 @@
         <tr>
             <th>商品名</th>
             <th>価格</th>
+            <th>アクション</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,9 @@
         <tr>
             <td>{{ product.name }}</td>
             <td>{{ product.price }} 円</td>
+            <td>
+                <button class="btn btn-primary" onclick="location.href='{% url 'edit' pk=product.pk %}'">編集</button>
+            </td>            
         </tr>
         {% empty %}
         <tr>

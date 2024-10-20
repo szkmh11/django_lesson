@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Product
 from .forms import ProductForm  # ProductFormをインポート
 from django.shortcuts import get_object_or_404
+from django.views.generic.edit import CreateView, UpdateView
 
 # 商品一覧表示
 def product_list_view(request):
@@ -16,18 +17,29 @@ def product_list_view(request):
 
 #   return render(request, 'app.html', {'page_obj': page_obj})
 
-# 商品作成ビュー（関数ベース）
+class ProductCreateView(CreateView):
+    model = Product
+    fields = '__all__'
+
+#商品作成ビュー（関数ベース）
 def product_create(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')  # 商品一覧ページにリダイレクト
-    else:
-        form = ProductForm()
-    return render(request, 'app/product_form.html', {'form': form})
+   if request.method == 'POST':
+       form = ProductForm(request.POST)
+       if form.is_valid():
+           form.save()
+           return redirect('product_list')  # 商品一覧ページにリダイレクト
+   else:
+       form = ProductForm()
+   return render(request, 'app/product_form.html', {'form': form})
 
 #編集ビュー
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = '__all__'
+    template_name_suffix = '_update_form'
+
+
+#編集ビュー（関数ベース）
 def product_update(request, pk):
     product = get_object_or_404(Product, pk=pk)  # 主キーに基づいて商品を取得
 
