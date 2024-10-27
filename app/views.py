@@ -9,12 +9,11 @@ from django.urls import reverse_lazy
 
 # 商品一覧表示
 def product_list_view(request):
-    product_list = Product.objects.all().order_by('id')
-    print(product_list)  # ここでデータを確認
-    paginator = Paginator(product_list, 10)
+    product_list = Product.objects.all()  # データベースから全商品を取得
+    paginator = Paginator(product_list, 10)  # 1ページあたり10商品を表示
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'app/app.html', {'object_list': page_obj})
+    return render(request, 'app.html', {'page_obj': page_obj})
 
 
 # 商品作成ビュー（関数ベース）
