@@ -8,6 +8,8 @@ from app.views import (
     product_delete_view,  # 商品削除の関数ベースビュー
     category_filter,      # カテゴリ別の商品表示ビュー
 )
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', product_list_view, name='product_list'),  # ルートURLを商品一覧表示に設定
@@ -25,3 +27,6 @@ urlpatterns = [
     # カテゴリごとのフィルタリングURL
     path('category/<int:id>/', category_filter, name='category_filter'),  # カテゴリ別の商品一覧
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

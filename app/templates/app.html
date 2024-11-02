@@ -9,6 +9,9 @@
         <div class="col-md-3">
             <h4>カテゴリ</h4>
             <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="{% url 'product_list' %}">すべて</a>
+                    </li>
                 {% for category in categories %}
                     <li class="list-group-item">
                         <a href="{% url 'category_filter' category.id %}">{{ category.name }}</a>
@@ -27,10 +30,13 @@
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
+                                <img src="{{ product.img.url }}">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <p class="card-text">{{ product.price }} 円</p>
+                                <p class="card-text"> {{ product.category }}</p>
                             </div>
                             <div class="card-footer d-flex justify-content-between">
+
                                 <a href="{% url 'product_update' product.pk %}" class="btn btn-primary btn-sm">編集</a>
                                 <form action="{% url 'product_delete' product.pk %}" method="post" style="display:inline;">
                                     {% csrf_token %}
