@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}商品詳細{% endblock %}
+
+{% block content %}
+<h1>商品詳細</h1>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>商品名</th>
+            <th>価格</th>
+            <th>カテゴリ</th>
+            <th>商品画像</th>
+            <th>詳細</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>{{ object.name }}</td>
+        <td>{{ object.price }} 円</td>
+        <td>{{ object.category.name }}</td>
+        <td>
+            {% if object.img %}
+                <img src="{{ object.img.url }}" alt="{{ object.name }}" width="100">
+            {% else %}
+                <img src="{% static 'noImage.png' %}" alt="No Image" width="100">
+            {% endif %}
+        </td>
+        <td>{{ object.description }}</td> <!-- 商品詳細説明 -->
+    </tr>
+</table>
+
+<a href="{% url 'list' %}">戻る</a>
+{% endblock %}
